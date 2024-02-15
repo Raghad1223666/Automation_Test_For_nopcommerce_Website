@@ -20,8 +20,6 @@ public class FilterProductsPage extends PageBase {
     @FindBy(id = "products-orderby")
     WebElement productsSortDropDown;
 
-    @FindBy(id = "product-grid")
-    WebElement products;
 
     public void openFilterPage() {
         firstItemInHeaderMenu.click();
@@ -39,11 +37,11 @@ public class FilterProductsPage extends PageBase {
 
     public Map<String, List<String>> sortProducts(List<WebElement> products, String sortType) {
         List<String> productsName = new ArrayList<>(products.size());
-        for (int i = 0; i < products.size(); i++) {
-            String productText = products.get(i).findElement(By.className("product-title")).getText();
+        for (WebElement product : products) {
+            String productText = product.findElement(By.className("product-title")).getText();
             productsName.add(productText);
         }
-        List<String> expectedResultProductsName = new ArrayList<String>(productsName);
+        List<String> expectedResultProductsName = new ArrayList<>(productsName);
         if (sortType.equals("Name: A to Z")) {
             Collections.sort(expectedResultProductsName);
         } else if (sortType.equals("Name: Z to A")) {

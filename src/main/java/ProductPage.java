@@ -1,4 +1,3 @@
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -26,21 +25,14 @@ public class ProductPage extends PageBase {
     WebElement emailFriendButton;
     @FindBy(className = "add-to-cart-button")
     WebElement addToCartButton;
-    @FindBy(className = "header-logo")
-    WebElement headerLogo;
+
 
     @FindBy(id = "FriendEmail")
     WebElement friendEmailInput;
-    @FindBy(id = "YourEmailAddress")
-    WebElement yourEmailAddressInput;
     @FindBy(id = "PersonalMessage")
     WebElement personalMessageInput;
     @FindBy(name = "send-email")
     WebElement sendEmailButton;
-
-    public void backHome() {
-        headerLogo.click();
-    }
 
     public void searchAboutProduct(String productName) {
         searchInputField.sendKeys(productName);

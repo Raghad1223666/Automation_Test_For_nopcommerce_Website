@@ -2,6 +2,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
+import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
@@ -24,13 +25,13 @@ public class FilterProductTest extends TestBase {
         Assert.assertEquals(driver.findElement(By.className("page-title")).getText(), "Desktops");
     }
 
-    @DataProvider(name = "sort Data")
-    public static Object[][] filterData() {
+    @DataProvider(name = "Sort data")
+    public static Object[][] sortData() {
         return new Object[][]{{"Name: A to Z"}, {"Name: Z to A"}};
     }
 
-    @Test(priority = 2, dataProvider = "sort Data")
-    public void selectOrderTestCase(String sortType) {
+    @Test(priority = 2, dataProvider = "Sort data")
+    public void selectSortTypeTestCase(String sortType) {
         filterProductPage.filterProducts();
         filterProductPage.selectSort(sortType);
 
@@ -40,7 +41,7 @@ public class FilterProductTest extends TestBase {
     }
 
 
-    @Test(priority = 3, dataProvider = "sort Data")
+    @Test(priority = 3, dataProvider = "Sort data")
     public void sortProductsTestCase(String sortType) throws InterruptedException {
         filterProductPage.filterProducts();
         filterProductPage.selectSort(sortType);
@@ -49,5 +50,10 @@ public class FilterProductTest extends TestBase {
         Map<String, List<String>> result = filterProductPage.sortProducts(products, sortType);
         Thread.sleep(1000);
         Assert.assertEquals(result.get("actualResult"), result.get("expectedResult"));
+    }
+
+    @AfterTest
+    public void afterTest() {
+        filterProductPage.backToHome();
     }
 }

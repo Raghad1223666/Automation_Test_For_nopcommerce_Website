@@ -1,5 +1,6 @@
 import org.openqa.selenium.By;
 import org.testng.Assert;
+import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
@@ -39,5 +40,10 @@ public class CheckoutTest extends TestBase {
         Thread.sleep(1000);
         Assert.assertEquals(driver.findElement(By.cssSelector(".page-title h1")).getText(), "Thank you");
         Assert.assertEquals(driver.findElement(By.cssSelector(".order-completed .title")).getText(), "Your order has been successfully processed!");
+    }
+
+    @AfterTest
+    public void afterTest() {
+        checkoutPage.backToHome();
     }
 }
